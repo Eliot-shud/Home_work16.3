@@ -1,9 +1,5 @@
 from sqlalchemy import ForeignKey
-
-from app import *
-from app import db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db.create_all()
+from setup_db import db
 
 
 class User(db.Model):
@@ -56,8 +52,8 @@ class Order(db.Model):
 class Offer(db.Model):
     __tablename__ = "offer"
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey("order_id"))
-    executor_id = db.Column(db.Integer, db.ForeignKey("user_id"))
+    order_id = db.Column(db.Integer, db.ForeignKey("order.id"))
+    executor_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def to_dict(self):
         return {
